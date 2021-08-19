@@ -254,6 +254,8 @@
     #include "boards/AVR_MKS_GEN_L_V2/pins_MKS_GEN_L_V2.h"
 #elif (BOARD == BOARD_AVR_MKS_GEN_L_V21)
     #include "boards/AVR_MKS_GEN_L_V21/pins_MKS_GEN_L_V21.h"
+#elif (BOARD == BOARD_AVR_FYSETC_F6_V13)
+    #include "boards/AVR_FYSETC_F6_V13/pins_FYSETC_F6_V13.h"
 #endif
 
 #include "Configuration_adv.hpp"
