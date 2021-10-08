@@ -259,6 +259,12 @@
 #ifndef DEC_INVERT_DIR
     #define DEC_INVERT_DIR 0
 #endif
+#ifndef AZ_INVERT_DIR
+    #define AZ_INVERT_DIR 0
+#endif
+#ifndef ALT_INVERT_DIR
+    #define ALT_INVERT_DIR 0
+#endif
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                  ////////
@@ -350,9 +356,11 @@
 
     // the Circumference of the AZ rotation. 808mm dia.
     #define AZ_CIRCUMFERENCE 2538.4f
-    #define AZIMUTH_STEPS_PER_REV                                                                                                          \
-        (AZ_CORRECTION_FACTOR * (AZ_CIRCUMFERENCE / (AZ_PULLEY_TEETH * GT2_BELT_PITCH)) * AZ_STEPPER_SPR                                   \
-         * AZ_MICROSTEPPING)                                                      // Actually u-steps/rev
+    #ifndef AZIMUTH_STEPS_PER_REV
+        #define AZIMUTH_STEPS_PER_REV                                                                                                      \
+            (AZ_CORRECTION_FACTOR * (AZ_CIRCUMFERENCE / (AZ_PULLEY_TEETH * GT2_BELT_PITCH)) * AZ_STEPPER_SPR                               \
+             * AZ_MICROSTEPPING)  // Actually u-steps/rev
+    #endif
     #define AZIMUTH_STEPS_PER_ARC_MINUTE (AZIMUTH_STEPS_PER_REV / (360 * 60.0f))  // Used to determine move distance in steps
 
     // AZ TMC2209 UART settings
@@ -387,7 +395,7 @@
             #if ALT_STEPPER_TYPE == STEPPER_TYPE_28BYJ48
                 #define ALT_MICROSTEPPING 4.0f
             #else
-                #define ALT_MICROSTEPPING 64.0f
+                #define ALT_MICROSTEPPING 4.0f
             #endif
         #else
             #error Unknown ALT driver type. Did you define ALT_DRIVER_TYPE?
@@ -411,7 +419,7 @@
         #endif
         #ifndef ALT_STEPPER_SPEED
             #define ALT_STEPPER_SPEED                                                                                                      \
-                100 * ALT_MICROSTEPPING  // You can change the speed and acceleration of the steppers here. Max. Speed = 3000.
+                3000 * ALT_MICROSTEPPING  // You can change the speed and acceleration of the steppers here. Max. Speed = 3000.
         #endif
         #ifndef ALT_STEPPER_ACCELERATION
             #define ALT_STEPPER_ACCELERATION 100 * ALT_MICROSTEPPING
@@ -462,6 +470,9 @@
 //////////////////////////////////////////
 // Enable focuser functionality in your local configuration. Do not edit here!
 #if (FOCUS_STEPPER_TYPE != STEPPER_TYPE_NONE)
+    #ifndef FOCUS_UART_STEALTH_MODE
+        #define FOCUS_UART_STEALTH_MODE 1
+    #endif
 
     #if FOCUS_DRIVER_TYPE == DRIVER_TYPE_ULN2003
         #define FOCUS_MICROSTEPPING 1  // Fullstep mode using ULN2003 driver
@@ -497,18 +508,20 @@
 
     // FOCUS TMC2209 UART settings
     // These settings work only with TMC2209 in UART connection (single wire to TX)
+    #ifndef FOCUSER_ALWAYS_ON
+        #define FOCUSER_ALWAYS_ON 0
+    #endif
+
     #if (FOCUS_DRIVER_TYPE == DRIVER_TYPE_TMC2209_UART)
         #define FOCUS_RMSCURRENT FOCUS_MOTOR_CURRENT_RATING *(FOCUS_OPERATING_CURRENT_SETTING / 100.0f) / 1.414f
-
+        #ifndef FOCUSER_MOTOR_HOLD_SETTING
+            #define FOCUSER_MOTOR_HOLD_SETTING 100
+        #endif
         #define FOCUS_STALL_VALUE 1  // adjust this value if the Focus autohoming sequence often false triggers, or triggers too late
-
         #ifndef USE_VREF
             #define USE_VREF                                                                                                               \
                 0  //By default Vref is ignored when using UART to specify rms current. Only enable if you know what you are doing.
         #endif
-    #endif
-    #ifndef FOCUSER_ALWAYS_ON
-        #define FOCUSER_ALWAYS_ON 0
     #endif
 #endif
 

@@ -56,6 +56,8 @@ BUILD_FLAGS = {
     "AZ_DRIVER_TYPE": DRIVER_TYPES,
     "ALT_STEPPER_TYPE": STEPPER_TYPES,
     "ALT_DRIVER_TYPE": DRIVER_TYPES,
+    "FOCUS_STEPPER_TYPE": STEPPER_TYPES,
+    "FOCUS_DRIVER_TYPE": DRIVER_TYPES,
     "DISPLAY_TYPE": DISPLAY_TYPES,
     "RA_MOTOR_CURRENT_RATING": "1",
     "RA_OPERATING_CURRENT_SETTING": "1",
@@ -65,6 +67,8 @@ BUILD_FLAGS = {
     "ALT_OPERATING_CURRENT_SETTING": "1",
     "AZ_MOTOR_CURRENT_RATING": "1",
     "AZ_OPERATING_CURRENT_SETTING": "1",
+    "FOCUS_MOTOR_CURRENT_RATING": "1",
+    "FOCUS_OPERATING_CURRENT_SETTING": "1",
 }
 
 STEPPER_SUPPORT = {
@@ -122,6 +126,12 @@ BOARD_SUPPORT = {
         "ALT_STEPPER_TYPE": [
             "STEPPER_TYPE_NONE"
         ],
+        "FOCUS_DRIVER_TYPE": [
+            "DRIVER_TYPE_NONE"
+        ],
+        "FOCUS_STEPPER_TYPE": [
+            "STEPPER_TYPE_NONE"
+        ],
     }),
     "mksgenlv21": update_dict(BUILD_FLAGS, {
         "USE_GPS": [0],
@@ -145,6 +155,12 @@ BOARD_SUPPORT = {
         "DISPLAY_TYPE": [
             "DISPLAY_TYPE_NONE",
             "DISPLAY_TYPE_LCD_KEYPAD"
+        ],
+        "FOCUS_DRIVER_TYPE": [
+            "DRIVER_TYPE_NONE"
+        ],
+        "FOCUS_STEPPER_TYPE": [
+            "STEPPER_TYPE_NONE"
         ],
     }),
     "fysetcf6v13": update_dict(BUILD_FLAGS, {
@@ -183,6 +199,8 @@ SHORT_STRINGS = {
     "AZ_DRIVER_TYPE": "AZ_DRIVER",
     "ALT_STEPPER_TYPE": "ALT_STEPPER",
     "ALT_DRIVER_TYPE": "ALT_DRIVER",
+    "FOCUS_STEPPER_TYPE": "FOCUS_STEPPER",
+    "FOCUS_DRIVER_TYPE": "FOCUS_DRIVER",
     "DISPLAY_TYPE": "DISPLAY",
 }
 
@@ -222,6 +240,7 @@ def set_support_constraints(problem):
     problem.addConstraint(driver_supports_stepper, ["DEC_DRIVER_TYPE", "DEC_STEPPER_TYPE"])
     problem.addConstraint(driver_supports_stepper, ["ALT_DRIVER_TYPE", "ALT_STEPPER_TYPE"])
     problem.addConstraint(driver_supports_stepper, ["AZ_DRIVER_TYPE", "AZ_STEPPER_TYPE"])
+    problem.addConstraint(driver_supports_stepper, ["FOCUS_DRIVER_TYPE", "FOCUS_STEPPER_TYPE"])
 
 
 # Define constraints for excluded tests
