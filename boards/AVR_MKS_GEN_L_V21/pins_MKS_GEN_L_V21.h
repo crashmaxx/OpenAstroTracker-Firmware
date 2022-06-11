@@ -147,7 +147,7 @@
 
 // RA Homing pin for Hall sensor
 #ifndef RA_HOMING_SENSOR_PIN
-    #define RA_HOMING_SENSOR_PIN 53
+    #define RA_HOMING_SENSOR_PIN 3
 #endif
 
 //GPS pin configuration
@@ -186,6 +186,9 @@
 #endif
 #ifndef DEW_HEATER_PIN2
     #define DEW_HEATER_2_PIN 7
+#endif
+#ifndef DEW_HEATER_PIN3
+    #define DEW_HEATER_3_PIN 8
 #endif
 
 //Serial port for external debugging

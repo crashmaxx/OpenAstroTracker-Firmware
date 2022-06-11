@@ -115,6 +115,7 @@ void setup()
 #if DEW_HEATER == 1
     digitalWrite(DEW_HEATER_1_PIN, HIGH);
     digitalWrite(DEW_HEATER_2_PIN, HIGH);
+    digitalWrite(DEW_HEATER_3_PIN, HIGH);
 #endif
 
     /////////////////////////////////
